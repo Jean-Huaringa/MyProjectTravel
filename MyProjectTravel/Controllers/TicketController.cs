@@ -70,7 +70,7 @@ namespace MyProjectTravel.Controllers
                     return View();
                 }
 
-                return View(ticket);
+                return View("GetTicketById",ticket);
             }
             catch (Exception ex)
             {
@@ -82,7 +82,7 @@ namespace MyProjectTravel.Controllers
         [HttpGet("AddTicket")]
         public async Task<IActionResult> AddTicketAsync()
         {
-            return View(new Ticket());
+            return View("AddTicket", new Ticket());
         }
 
         [HttpPost("AddTicket")]
@@ -107,7 +107,7 @@ namespace MyProjectTravel.Controllers
                     PropertyNameCaseInsensitive = true
                 });
 
-                return RedirectToAction("GetAllTicketAsync"); // Redirige a la lista de tickets
+                return RedirectToAction("GetAll");
             }
             catch (Exception ex)
             {
@@ -137,7 +137,7 @@ namespace MyProjectTravel.Controllers
                 return View();
             }
 
-            return View(busEntity);
+            return View("UpdateTicket", busEntity);
         }
 
         [HttpPost("UpdateTicket")]
@@ -157,7 +157,7 @@ namespace MyProjectTravel.Controllers
                     return Unauthorized(new { message = "Credenciales incorrectas" });
                 }
 
-                return RedirectToAction("GetAllTicketAsync");
+                return RedirectToAction("GetAll");
             }
             catch (Exception ex)
             {
@@ -178,7 +178,7 @@ namespace MyProjectTravel.Controllers
                     return Unauthorized(new { message = "Credenciales incorrectas" });
                 }
 
-                return RedirectToAction("GetAllTicketAsync"); // Redirige a la lista de tickets
+                return RedirectToAction("GetAll");
             }
             catch (Exception ex)
             {

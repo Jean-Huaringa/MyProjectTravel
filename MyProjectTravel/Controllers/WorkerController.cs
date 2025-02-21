@@ -40,7 +40,7 @@ namespace MyProjectTravel.Controllers
                     return View(new List<Worker>());
                 }
 
-                return View(Workers);
+                return View("GetAll", Workers);
             }
             catch (Exception ex)
             {
@@ -72,7 +72,7 @@ namespace MyProjectTravel.Controllers
                     return View();
                 }
 
-                return View(Worker);
+                return View("GetWorker", Worker);
             }
             catch (Exception ex)
             {
@@ -84,7 +84,7 @@ namespace MyProjectTravel.Controllers
         [HttpGet("AddWorker")]
         public async Task<IActionResult> AddWorkerAsync()
         {
-            return View(new Worker());
+            return View("AddWorker", new Worker());
         }
 
         [HttpPost("AddWorker")]
@@ -109,7 +109,7 @@ namespace MyProjectTravel.Controllers
                     PropertyNameCaseInsensitive = true
                 });
 
-                return RedirectToAction("GetAllWorkerAsync"); // Redirige a la lista de Workers
+                return RedirectToAction("GetAll");
             }
             catch (Exception ex)
             {
@@ -139,7 +139,7 @@ namespace MyProjectTravel.Controllers
                 return View();
             }
 
-            return View(busEntity);
+            return View("UpdateWorker", busEntity);
         }
 
         [HttpPost("UpdateWorker")]
@@ -159,7 +159,7 @@ namespace MyProjectTravel.Controllers
                     return Unauthorized(new { message = "Credenciales incorrectas" });
                 }
 
-                return RedirectToAction("GetAllWorkerAsync");
+                return RedirectToAction("GetAll");
             }
             catch (Exception ex)
             {
@@ -180,7 +180,7 @@ namespace MyProjectTravel.Controllers
                     return Unauthorized(new { message = "Credenciales incorrectas" });
                 }
 
-                return RedirectToAction("GetAllWorkerAsync"); // Redirige a la lista de Workers
+                return RedirectToAction("GetAll");
             }
             catch (Exception ex)
             {

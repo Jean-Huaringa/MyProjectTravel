@@ -7,22 +7,22 @@
 <h1>Itinerario</h1>
 
 <p>
-    <a asp-controller="Itinerario" asp-action="AddItinerario" class="btn btn-primary">Ingresar un nuevo Itinerario</a>
+    <a asp-controller="Itinerary" asp-action="AddItenerary" class="btn btn-primary">Ingresar un nuevo Itinerario</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.origin.city)
+                @Html.DisplayNameFor(model => model.idOrigin)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.destination.city)
+                @Html.DisplayNameFor(model => model.idDestination)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.worker.user.userName)
+                @Html.DisplayNameFor(model => model.idWrk)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.bus.placa)
+                @Html.DisplayNameFor(model => model.idBus)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.startDate)
@@ -41,16 +41,16 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.origin.city)
+                    @Html.DisplayFor(modelItem => item.idOrigin)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.destination.city)
+                    @Html.DisplayFor(modelItem => item.idDestination)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.worker.user.userName)
+                    @Html.DisplayFor(modelItem => item.idWrk)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.bus.placa)
+                    @Html.DisplayFor(modelItem => item.idBus)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.startDate)

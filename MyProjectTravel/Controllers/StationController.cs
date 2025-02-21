@@ -70,7 +70,7 @@ namespace MyProjectTravel.Controllers
                     return View();
                 }
 
-                return View(Station);
+                return View("GetStationById", Station);
             }
             catch (Exception ex)
             {
@@ -107,7 +107,7 @@ namespace MyProjectTravel.Controllers
                     PropertyNameCaseInsensitive = true
                 });
 
-                return RedirectToAction("GetAllStationAsync"); // Redirige a la lista de Stations
+                return RedirectToAction("GetAll");
             }
             catch (Exception ex)
             {
@@ -157,7 +157,7 @@ namespace MyProjectTravel.Controllers
                     return Unauthorized(new { message = "Credenciales incorrectas" });
                 }
 
-                return RedirectToAction("GetAllStationAsync");
+                return RedirectToAction("GetAll");
             }
             catch (Exception ex)
             {
@@ -178,7 +178,7 @@ namespace MyProjectTravel.Controllers
                     return Unauthorized(new { message = "Credenciales incorrectas" });
                 }
 
-                return RedirectToAction("GetAllStationAsync"); // Redirige a la lista de Stations
+                return RedirectToAction("GetAll");
             }
             catch (Exception ex)
             {

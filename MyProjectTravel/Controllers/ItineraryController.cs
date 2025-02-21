@@ -82,7 +82,7 @@ namespace MyProjectTravel.Controllers
         [HttpGet("AddItenerary")]
         public async Task<IActionResult> AddIteneraryAsync()
         {
-            return View(new Itinerary());
+            return View("AddItenerary", new Itinerary());
         }
 
         [HttpPost("AddItenerary")]
@@ -107,7 +107,7 @@ namespace MyProjectTravel.Controllers
                     PropertyNameCaseInsensitive = true
                 });
 
-                return RedirectToAction("GetAllIteneraryAsync");
+                return RedirectToAction("GetAll");
             }
             catch (Exception ex)
             {
@@ -157,7 +157,7 @@ namespace MyProjectTravel.Controllers
                     return Unauthorized(new { message = "Credenciales incorrectas" });
                 }
 
-                return RedirectToAction("GetAllIteneraryAsync");
+                return RedirectToAction("GetAll");
             }
             catch (Exception ex)
             {
@@ -178,7 +178,7 @@ namespace MyProjectTravel.Controllers
                     return Unauthorized(new { message = "Credenciales incorrectas" });
                 }
 
-                return RedirectToAction("GetAllIteneraryAsync"); // Redirige a la lista de Itenerarys
+                return RedirectToAction("GetAll");
             }
             catch (Exception ex)
             {
