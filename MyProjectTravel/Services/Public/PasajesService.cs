@@ -1,4 +1,8 @@
-﻿namespace MyProyectTravel.Services.Public
+﻿using MyProjectTravel.Models.DTO;
+using System.Text;
+using System.Text.Json;
+
+namespace MyProyectTravel.Services.Public
 {
     public class PasajesService
     {

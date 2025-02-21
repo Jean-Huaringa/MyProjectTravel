@@ -1,4 +1,8 @@
-﻿namespace MyProyectTravel.Services
+﻿using MyProjectTravel.Models.DTO;
+using System.Text;
+using System.Text.Json;
+
+namespace MyProyectTravel.Services
 {
     public class UsuarioService
     {
@@ -42,7 +46,7 @@
             }
         }
 
-        public async Task<string> AddUsuarioAsync(UsuarioDTO model)
+        public async Task<string> AddUsuarioAsync(UserDTO model)
         {
             try
             {
@@ -63,7 +67,7 @@
             }
         }
 
-        public async Task<string> UpdateUsuarioAsync(int id, UsuarioDTO model)
+        public async Task<string> UpdateUsuarioAsync(int id, UserDTO model)
         {
             try
             {

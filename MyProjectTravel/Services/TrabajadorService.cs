@@ -1,4 +1,8 @@
-﻿namespace MyProyectTravel.Services
+﻿using MyProjectTravel.Models.DTO;
+using System.Text;
+using System.Text.Json;
+
+namespace MyProyectTravel.Services
 {
     public class TrabajadorService
     {
@@ -42,7 +46,7 @@
             }
         }
 
-        public async Task<string> AddTrabajadorAsync(TrabajadorDTO model)
+        public async Task<string> AddTrabajadorAsync(WorkerDTO model)
         {
             try
             {
@@ -63,7 +67,7 @@
             }
         }
 
-        public async Task<string> UpdateTrabajadorAsync(int id, TrabajadorDTO model)
+        public async Task<string> UpdateTrabajadorAsync(int id, WorkerDTO model)
         {
             try
             {

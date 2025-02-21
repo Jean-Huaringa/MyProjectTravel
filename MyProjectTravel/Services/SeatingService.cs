@@ -1,4 +1,8 @@
-﻿namespace MyProyectTravel.Services
+﻿using MyProjectTravel.Models.DTO;
+using System.Text;
+using System.Text.Json;
+
+namespace MyProyectTravel.Services
 {
     public class SeatingService
     {
@@ -29,7 +33,7 @@
         {
             try
             {
-                var response = await _httpClient.GetAsync($"{id}");
+                var response = await _httpClient.GetAsync($"{idBus}");
 
                 response.EnsureSuccessStatusCode();
 
@@ -45,7 +49,7 @@
         {
             try
             {
-                var query = $"take-seat?idBus={idOrigen}&row={idDestino}&column={fechaInicio?.ToString("yyyy-MM-dd")}";
+                var query = $"take-seat?idBus={idBus}&row={row}&column={column}";
                 
                 var response = await _httpClient.PostAsync(query, null);
             

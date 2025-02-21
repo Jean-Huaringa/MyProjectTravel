@@ -1,5 +1,6 @@
 ﻿using MyProjectTravel.Models.DTO;
-using Newtonsoft.Json;
+using System.Text;
+using System.Text.Json;
 
 namespace MyProyectTravel.Services
 {
@@ -45,7 +46,7 @@ namespace MyProyectTravel.Services
             }
         }
 
-        public async Task<string> AddItinerarioAsync(ItinerarioDTO model)
+        public async Task<string> AddItinerarioAsync(ItineraryDTO model)
         {
             try
             {
@@ -66,7 +67,7 @@ namespace MyProyectTravel.Services
             }
         }
 
-        public async Task<string> UpdateItinerarioAsync(int id, ItinerarioDTO model)
+        public async Task<string> UpdateItinerarioAsync(int id, ItineraryDTO model)
         {
             try
             {
