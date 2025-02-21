@@ -82,17 +82,12 @@ namespace MyProjectTravel.Controllers
         [HttpGet("AddStation")]
         public async Task<IActionResult> AddStationAsync()
         {
-            return View(new Station());
+            return View("AddStation",new Station());
         }
 
         [HttpPost("AddStation")]
         public async Task<IActionResult> AddStationAsync(Station StationModel)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(StationModel); // Retorna la vista con los errores de validación
-            }
-
             try
             {
                 var response = await _stationService.AddStationAsync(StationModel);

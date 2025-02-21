@@ -15,7 +15,7 @@ namespace MyProyectTravel.Services.Public
     
         public async Task<string> GetAllEstacionesAsync()
         {
-            var response = await _httpClient.GetAsync("all");
+            var response = await _httpClient.GetAsync("all/station");
             response.EnsureSuccessStatusCode();
             return await response.Content.ReadAsStringAsync();
         }
@@ -24,7 +24,7 @@ namespace MyProyectTravel.Services.Public
         {
             var query = $"filter-for-passage?idOrigen={idOrigen}&idDestino={idDestino}&fechaInicio={fechaInicio?.ToString("yyyy-MM-dd")}";
     
-            var response = await _httpClient.PostAsync(query, null);
+            var response = await _httpClient.GetAsync(query);
 
             response.EnsureSuccessStatusCode();
                 
@@ -38,9 +38,9 @@ namespace MyProyectTravel.Services.Public
             return await response.Content.ReadAsStringAsync();
         }
     
-        public async Task<string> BuyTicketAsync(TicketDTO model)
+        public async Task<string> BuyTicketAsync(TicketDTO ticketModel)
         {
-            var jsonContent = JsonSerializer.Serialize(model);
+            var jsonContent = JsonSerializer.Serialize(ticketModel);
             var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
     
             var response = await _httpClient.PostAsync("buy-ticket/", content);

@@ -13,7 +13,7 @@ builder.Services.AddHttpClient<AccountService>(client =>
 
 builder.Services.AddHttpClient<PasajesService>(client =>
 {
-    client.BaseAddress = new Uri("https://localhost:7215/api/Account/");
+    client.BaseAddress = new Uri("https://localhost:7215/api/Pasajes/");
 });
 
 builder.Services.AddHttpClient<BusService>(client =>
@@ -76,8 +76,20 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=Pasajes}/{action=SearchForPassage}/{id?}");
+
+    // Redirigir la raíz a la página por defecto
+    endpoints.MapGet("/", context =>
+    {
+        context.Response.Redirect("/Pasajes/SearchForPassage");
+        return Task.CompletedTask;
+    });
+});
+
+
 
 app.Run();
