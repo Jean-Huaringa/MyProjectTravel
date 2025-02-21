@@ -1,4 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MyProjectTravel.Models;
+using MyProjectTravel.Models.DTO;
+using MyProyectTravel.Services;
+using System.Text.Json;
 
 namespace MyProjectTravel.Controllers
 {
@@ -16,13 +20,13 @@ namespace MyProjectTravel.Controllers
         {
             try
             {
-                var response = await _accountService.GetAllIteneraryAsync();
+                var response = await _itineraryService.GetAllIteneraryAsync();
                 if (response == null)
                 {
                     return Unauthorized(new { message = "Credenciales incorrectas" });
                 }
 
-                var Itenerarys = JsonSerializer.Deserialize<List<Itenerary>>(response, new JsonSerializerOptions
+                var Itenerarys = JsonSerializer.Deserialize<List<Itinerary>>(response, new JsonSerializerOptions
                 {   
                     PropertyNameCaseInsensitive = true
                 });
@@ -30,7 +34,7 @@ namespace MyProjectTravel.Controllers
                 if (Itenerarys == null || Itenerarys.Count == 0)
                 {
                     ModelState.AddModelError(string.Empty, "No se encontraron Itenerarys.");
-                    return View(new List<Itenerary>());
+                    return View(new List<Itinerary>());
                 }
 
                 return View(Itenerarys);
@@ -38,7 +42,7 @@ namespace MyProjectTravel.Controllers
             catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, $"Error de comunicación con la API: {ex.Message}");
-                return View(new List<Itenerary>());
+                return View(new List<Itinerary>());
             }
         }
 
@@ -46,14 +50,14 @@ namespace MyProjectTravel.Controllers
         {
             try
             {
-                var response = await _accountService.GetIteneraryByIdAsync(id);
+                var response = await _itineraryService.GetIteneraryByIdAsync(id);
                 
                 if (response == null)
                 {
                     return Unauthorized(new { message = "Credenciales incorrectas" });
                 }
 
-                var Itenerary = JsonSerializer.Deserialize<Itenerary>(response, new JsonSerializerOptions
+                var Itenerary = JsonSerializer.Deserialize<Itinerary>(response, new JsonSerializerOptions
                 {   
                     PropertyNameCaseInsensitive = true
                 });
@@ -73,7 +77,7 @@ namespace MyProjectTravel.Controllers
             }
         }
 
-        public async Task<IActionResult> AddIteneraryAsync(IteneraryDTO model)
+        public async Task<IActionResult> AddIteneraryAsync(ItineraryDTO model)
         {
             if (!ModelState.IsValid)
             {
@@ -82,14 +86,14 @@ namespace MyProjectTravel.Controllers
 
             try
             {
-                var response = await _accountService.AddIteneraryAsync(model);
+                var response = await _itineraryService.AddIteneraryAsync(model);
                 
                 if (response == null)
                 {
                     return Unauthorized(new { message = "Credenciales incorrectas" });
                 }
 
-                var Itenerary = JsonSerializer.Deserialize<Itenerary>(response, new JsonSerializerOptions
+                var Itenerary = JsonSerializer.Deserialize<Itinerary>(response, new JsonSerializerOptions
                 {
                     PropertyNameCaseInsensitive = true
                 });
@@ -103,7 +107,7 @@ namespace MyProjectTravel.Controllers
             }
         }
 
-        public async Task<IActionResult> UpdateIteneraryAsync(int id, IteneraryDTO model)
+        public async Task<IActionResult> UpdateIteneraryAsync(int id, ItineraryDTO model)
         {
             if (!ModelState.IsValid)
             {
@@ -112,7 +116,7 @@ namespace MyProjectTravel.Controllers
 
             try
             {
-                var response = await _accountService.UpdateIteneraryAsync(id, model);
+                var response = await _itineraryService.UpdateIteneraryAsync(id, model);
                 
                 if (response == null)
                 {
@@ -133,7 +137,7 @@ namespace MyProjectTravel.Controllers
 
             try
             {
-                var response = await _accountService.DeleteIteneraryAsync(id);
+                var response = await _itineraryService.DeleteIteneraryAsync(id);
                 if (response == null)
                 {
                     return Unauthorized(new { message = "Credenciales incorrectas" });

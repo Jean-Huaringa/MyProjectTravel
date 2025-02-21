@@ -4,11 +4,11 @@ using System.Text.Json;
 
 namespace MyProyectTravel.Services
 {
-    public class TickerService
+    public class TicketService
     {
         private readonly HttpClient _httpClient;
 
-        public TickerService(HttpClient httpClient)
+        public TicketService(HttpClient httpClient)
         {
             _httpClient = httpClient;
         }

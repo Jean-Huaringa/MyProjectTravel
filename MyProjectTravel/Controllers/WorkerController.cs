@@ -1,5 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MyProjectTravel.Models;
+using MyProjectTravel.Models.DTO;
+using MyProyectTravel.Services;
+using System.Text.Json;
 
 namespace MyProjectTravel.Controllers
 {
@@ -17,7 +21,7 @@ namespace MyProjectTravel.Controllers
         {
             try
             {
-                var response = await _accountService.GetAllWorkerAsync();
+                var response = await _workerService.GetAllWorkerAsync();
                 if (response == null)
                 {
                     return Unauthorized(new { message = "Credenciales incorrectas" });
@@ -47,7 +51,7 @@ namespace MyProjectTravel.Controllers
         {
             try
             {
-                var response = await _accountService.GetWorkerByIdAsync(id);
+                var response = await _workerService.GetWorkerByIdAsync(id);
                 
                 if (response == null)
                 {
@@ -83,7 +87,7 @@ namespace MyProjectTravel.Controllers
 
             try
             {
-                var response = await _accountService.AddWorkerAsync(model);
+                var response = await _workerService.AddWorkerAsync(model);
                 
                 if (response == null)
                 {
@@ -113,7 +117,7 @@ namespace MyProjectTravel.Controllers
 
             try
             {
-                var response = await _accountService.UpdateWorkerAsync(id, model);
+                var response = await _workerService.UpdateWorkerAsync(id, model);
                 
                 if (response == null)
                 {
@@ -134,7 +138,7 @@ namespace MyProjectTravel.Controllers
 
             try
             {
-                var response = await _accountService.DeleteWorkerAsync(id);
+                var response = await _workerService.DeleteWorkerAsync(id);
                 if (response == null)
                 {
                     return Unauthorized(new { message = "Credenciales incorrectas" });

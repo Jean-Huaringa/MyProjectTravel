@@ -1,12 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MyProjectTravel.Models;
+using MyProjectTravel.Models.DTO;
+using MyProyectTravel.Services;
+using System.Text.Json;
 
 namespace MyProjectTravel.Controllers
 {
     public class StatinoController : Controller
     {
-        private readonly StatinoService _statinoService;
+        private readonly StationService _statinoService;
 
-        public StatinoController(StatinoService statinoService)
+        public StatinoController(StationService statinoService)
         {
             _statinoService = statinoService;
         }
@@ -15,7 +19,7 @@ namespace MyProjectTravel.Controllers
         {
             try
             {
-                var response = await _accountService.GetAllStationAsync();
+                var response = await _statinoService.GetAllStationAsync();
                 if (response == null)
                 {
                     return Unauthorized(new { message = "Credenciales incorrectas" });
@@ -45,7 +49,7 @@ namespace MyProjectTravel.Controllers
         {
             try
             {
-                var response = await _accountService.GetStationByIdAsync(id);
+                var response = await _statinoService.GetStationByIdAsync(id);
                 
                 if (response == null)
                 {
@@ -81,7 +85,7 @@ namespace MyProjectTravel.Controllers
 
             try
             {
-                var response = await _accountService.AddStationAsync(model);
+                var response = await _statinoService.AddStationAsync(model);
                 
                 if (response == null)
                 {
@@ -111,7 +115,7 @@ namespace MyProjectTravel.Controllers
 
             try
             {
-                var response = await _accountService.UpdateStationAsync(id, model);
+                var response = await _statinoService.UpdateStationAsync(id, model);
                 
                 if (response == null)
                 {
@@ -132,7 +136,7 @@ namespace MyProjectTravel.Controllers
 
             try
             {
-                var response = await _accountService.DeleteStationAsync(id);
+                var response = await _statinoService.DeleteStationAsync(id);
                 if (response == null)
                 {
                     return Unauthorized(new { message = "Credenciales incorrectas" });
