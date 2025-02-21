@@ -1,6 +1,8 @@
-﻿namespace MyProjectTravel.Controllers
+﻿using Microsoft.AspNetCore.Mvc;
+
+namespace MyProjectTravel.Controllers
 {
-    public class EstacionController
+    public class EstacionController : Controller
     {
 
     }
