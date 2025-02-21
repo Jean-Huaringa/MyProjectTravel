@@ -4,17 +4,16 @@ using System.Text.Json;
 
 namespace MyProyectTravel.Services
 {
-    public class UsuarioService
+    public class UserService
     {
         private readonly HttpClient _httpClient;
 
-        public UsuarioService(HttpClient httpClient)
+        public UserService(HttpClient httpClient)
         {
             _httpClient = httpClient;
         }
-
-        
-        public async Task<string> GetAllUsuarioAsync()
+    
+        public async Task<string> GetAllUserAsync()
         {
             try
             {
@@ -30,7 +29,7 @@ namespace MyProyectTravel.Services
             }
         }
 
-        public async Task<string> GetUsuarioByIdAsync(int id)
+        public async Task<string> GetUserByIdAsync(int id)
         {
             try
             {
@@ -46,7 +45,7 @@ namespace MyProyectTravel.Services
             }
         }
 
-        public async Task<string> AddUsuarioAsync(UserDTO model)
+        public async Task<string> AddUserAsync(UserDTO model)
         {
             try
             {
@@ -67,7 +66,7 @@ namespace MyProyectTravel.Services
             }
         }
 
-        public async Task<string> UpdateUsuarioAsync(int id, UserDTO model)
+        public async Task<string> UpdateUserAsync(int id, UserDTO model)
         {
             try
             {
@@ -87,7 +86,7 @@ namespace MyProyectTravel.Services
             }
         }
 
-        public async Task<string> DeleteUsuarioAsync(int id)
+        public async Task<string> DeleteUserAsync(int id)
         {
             try
             {

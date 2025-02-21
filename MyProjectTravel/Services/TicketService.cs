@@ -4,16 +4,16 @@ using System.Text.Json;
 
 namespace MyProyectTravel.Services
 {
-    public class BoletoService
+    public class TickerService
     {
         private readonly HttpClient _httpClient;
 
-        public BoletoService(HttpClient httpClient)
+        public TickerService(HttpClient httpClient)
         {
             _httpClient = httpClient;
         }
 
-        public async Task<string> GetAllBoletoAsync()
+        public async Task<string> GetAllTicketAsync()
         {
             try
             {
@@ -29,7 +29,7 @@ namespace MyProyectTravel.Services
             }
         }
 
-        public async Task<string> GetBoletoByIdAsync(int id)
+        public async Task<string> GetTicketByIdAsync(int id)
         {
             try
             {
@@ -57,8 +57,6 @@ namespace MyProyectTravel.Services
                 response.EnsureSuccessStatusCode();
 
                 return await response.Content.ReadAsStringAsync();
-
-                throw new Exception($"Error al agregar el boleto: {response.ReasonPhrase}");
             }
             catch (Exception ex)
             {
@@ -66,7 +64,7 @@ namespace MyProyectTravel.Services
             }
         }
 
-        public async Task<string> UpdateBoletoAsync(int id, TicketDTO model)
+        public async Task<string> UpdateTicketAsync(int id, TicketDTO model)
         {
             try
             {
@@ -86,7 +84,7 @@ namespace MyProyectTravel.Services
             }
         }
 
-        public async Task<string> DeleteBoletoAsync(int id)
+        public async Task<string> DeleteTicketAsync(int id)
         {
             try
             {

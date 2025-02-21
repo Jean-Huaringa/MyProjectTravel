@@ -2,61 +2,61 @@
 
 namespace MyProjectTravel.Controllers
 {
-    public class BusController : Controller
+    public class TicketController : Controller
     {
-        public async Task<IActionResult> GetAllBusAsync()
+        public async Task<IActionResult> GetAllTicketAsync()
         {
             try
             {
-                var response = await _accountService.GetAllBusAsync();
+                var response = await _accountService.GetAllTicketAsync();
                 if (response == null)
                 {
                     return Unauthorized(new { message = "Credenciales incorrectas" });
                 }
 
-                var Buss = JsonSerializer.Deserialize<List<Bus>>(response, new JsonSerializerOptions
+                var tickets = JsonSerializer.Deserialize<List<Ticket>>(response, new JsonSerializerOptions
                 {   
                     PropertyNameCaseInsensitive = true
                 });
 
-                if (Buss == null || Buss.Count == 0)
+                if (tickets == null || tickets.Count == 0)
                 {
-                    ModelState.AddModelError(string.Empty, "No se encontraron Buss.");
-                    return View(new List<Bus>());
+                    ModelState.AddModelError(string.Empty, "No se encontraron tickets.");
+                    return View(new List<Ticket>());
                 }
 
-                return View(Buss);
+                return View(tickets);
             }
             catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, $"Error de comunicación con la API: {ex.Message}");
-                return View(new List<Bus>());
+                return View(new List<Ticket>());
             }
         }
 
-        public async Task<IActionResult> GetBusByIdAsync(int id)
+        public async Task<IActionResult> GetTicketByIdAsync(int id)
         {
             try
             {
-                var response = await _accountService.GetBusByIdAsync(id);
+                var response = await _accountService.GetTicketByIdAsync(id);
                 
                 if (response == null)
                 {
                     return Unauthorized(new { message = "Credenciales incorrectas" });
                 }
 
-                var Bus = JsonSerializer.Deserialize<Bus>(response, new JsonSerializerOptions
+                var ticket = JsonSerializer.Deserialize<Ticket>(response, new JsonSerializerOptions
                 {   
                     PropertyNameCaseInsensitive = true
                 });
 
-                if (Bus == null)
+                if (ticket == null)
                 {
-                    ModelState.AddModelError(string.Empty, "No se encontró el Bus especificado.");
+                    ModelState.AddModelError(string.Empty, "No se encontró el ticket especificado.");
                     return View();
                 }
 
-                return View(Bus);
+                return View(ticket);
             }
             catch (Exception ex)
             {
@@ -65,7 +65,7 @@ namespace MyProjectTravel.Controllers
             }
         }
 
-        public async Task<IActionResult> AddBusAsync(BusDTO model)
+        public async Task<IActionResult> AddTicketAsync(TicketDTO model)
         {
             if (!ModelState.IsValid)
             {
@@ -74,28 +74,28 @@ namespace MyProjectTravel.Controllers
 
             try
             {
-                var response = await _accountService.AddBusAsync(model);
+                var response = await _accountService.AddTicketAsync(model);
                 
                 if (response == null)
                 {
                     return Unauthorized(new { message = "Credenciales incorrectas" });
                 }
 
-                var Bus = JsonSerializer.Deserialize<Bus>(response, new JsonSerializerOptions
+                var ticket = JsonSerializer.Deserialize<Ticket>(response, new JsonSerializerOptions
                 {
                     PropertyNameCaseInsensitive = true
                 });
 
-                return RedirectToAction("GetAllBusAsync"); // Redirige a la lista de Buss
+                return RedirectToAction("GetAllTicketAsync"); // Redirige a la lista de tickets
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError(string.Empty, $"Error al agregar el Bus: {ex.Message}");
+                ModelState.AddModelError(string.Empty, $"Error al agregar el ticket: {ex.Message}");
                 return View(model);
             }
         }
 
-        public async Task<IActionResult> UpdateBusAsync(int id, BusDTO model)
+        public async Task<IActionResult> UpdateTicketAsync(int id, TicketDTO model)
         {
             if (!ModelState.IsValid)
             {
@@ -104,38 +104,38 @@ namespace MyProjectTravel.Controllers
 
             try
             {
-                var response = await _accountService.UpdateBusAsync(id, model);
+                var response = await _accountService.UpdateTicketAsync(id, model);
                 
                 if (response == null)
                 {
                     return Unauthorized(new { message = "Credenciales incorrectas" });
                 }
 
-                return RedirectToAction("GetAllBusAsync");
+                return RedirectToAction("GetAllTicketAsync");
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError(string.Empty, $"Error al actualizar el Bus: {ex.Message}");
+                ModelState.AddModelError(string.Empty, $"Error al actualizar el ticket: {ex.Message}");
                 return View(model);
             }
         }
 
-        public async Task<IActionResult> DeleteBusAsync(int id)
+        public async Task<IActionResult> DeleteTicketAsync(int id)
         {
 
             try
             {
-                var response = await _accountService.DeleteBusAsync(id);
+                var response = await _accountService.DeleteTicketAsync(id);
                 if (response == null)
                 {
                     return Unauthorized(new { message = "Credenciales incorrectas" });
                 }
 
-                return RedirectToAction("GetAllBusAsync"); // Redirige a la lista de Buss
+                return RedirectToAction("GetAllTicketAsync"); // Redirige a la lista de tickets
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError(string.Empty, $"Error al eliminar el Bus: {ex.Message}");
+                ModelState.AddModelError(string.Empty, $"Error al eliminar el ticket: {ex.Message}");
                 return View();
             }
         }

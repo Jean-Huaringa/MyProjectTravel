@@ -4,17 +4,16 @@ using System.Text.Json;
 
 namespace MyProyectTravel.Services
 {
-    public class ItinerarioService
+    public class WorkerService
     {
         private readonly HttpClient _httpClient;
 
-        public ItinerarioService(HttpClient httpClient)
+        public WorkerService(HttpClient httpClient)
         {
             _httpClient = httpClient;
         }
 
- 
-        public async Task<string> GetAllItinerarioAsync()
+        public async Task<string> GetAllWorkerAsync()
         {
             try
             {
@@ -26,11 +25,11 @@ namespace MyProyectTravel.Services
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error al obtener Itinerario: {ex.Message}", ex);
+                throw new Exception($"Error al obtener Trabajador: {ex.Message}", ex);
             }
         }
 
-        public async Task<string> GetItinerarioByIdAsync(int id)
+        public async Task<string> GetWorkerByIdAsync(int id)
         {
             try
             {
@@ -42,39 +41,39 @@ namespace MyProyectTravel.Services
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error al obtener el Itinerario: {ex.Message}", ex);
+                throw new Exception($"Error al obtener el Trabajador: {ex.Message}", ex);
             }
         }
 
-        public async Task<string> AddItinerarioAsync(ItineraryDTO model)
+        public async Task<string> AddWorkerAsync(WorkerDTO model)
         {
             try
             {
                 var jsonContent = JsonSerializer.Serialize(model);
                 var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
-                var response = await _httpClient.PostAsync("api/Itinerario/add", content);
+                var response = await _httpClient.PostAsync("api/Trabajador/add", content);
 
                 response.EnsureSuccessStatusCode();
 
                 return await response.Content.ReadAsStringAsync();
 
-                throw new Exception($"Error al agregar el Itinerario: {response.ReasonPhrase}");
+                throw new Exception($"Error al agregar el Trabajador: {response.ReasonPhrase}");
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error al agregar el Itinerario: {ex.Message}", ex);
+                throw new Exception($"Error al agregar el Trabajador: {ex.Message}", ex);
             }
         }
 
-        public async Task<string> UpdateItinerarioAsync(int id, ItineraryDTO model)
+        public async Task<string> UpdateWorkerAsync(int id, WorkerDTO model)
         {
             try
             {
                 var jsonContent = JsonSerializer.Serialize(model);
                 var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
-                var response = await _httpClient.PutAsync($"api/Itinerario/update/{id}", content);
+                var response = await _httpClient.PutAsync($"api/Trabajador/update/{id}", content);
 
                 response.EnsureSuccessStatusCode();
                 
@@ -83,15 +82,15 @@ namespace MyProyectTravel.Services
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error al actualizar el Itinerario: {ex.Message}", ex);
+                throw new Exception($"Error al actualizar el Trabajador: {ex.Message}", ex);
             }
         }
 
-        public async Task<string> DeleteItinerarioAsync(int id)
+        public async Task<string> DeleteWorkerAsync(int id)
         {
             try
             {
-                var response = await _httpClient.DeleteAsync($"api/Itinerario/delete/{id}");
+                var response = await _httpClient.DeleteAsync($"api/Trabajador/delete/{id}");
 
                 response.EnsureSuccessStatusCode();
 
@@ -99,7 +98,7 @@ namespace MyProyectTravel.Services
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error al eliminar el Itinerario: {ex.Message}", ex);
+                throw new Exception($"Error al eliminar el Trabajador: {ex.Message}", ex);
             }
         }
     }
