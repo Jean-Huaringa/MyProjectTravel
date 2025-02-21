@@ -6,6 +6,7 @@ using System.Text.Json;
 
 namespace MyProjectTravel.Controllers
 {
+    [Route("Bus")]
     public class BusController : Controller
     {
         private readonly BusService _busService;
@@ -15,7 +16,7 @@ namespace MyProjectTravel.Controllers
             _busService = busService;
         }
 
-        [HttpGet]
+        [HttpGet("GetAll")]
         public async Task<IActionResult> GetAllBusAsync()
         {
             try
@@ -37,7 +38,7 @@ namespace MyProjectTravel.Controllers
                     return View(new List<Bus>());
                 }
 
-                return View(Buss);
+                return View("GetAll", Buss);
             }
             catch (Exception ex)
             {
@@ -46,7 +47,7 @@ namespace MyProjectTravel.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpGet("GetBusById")]
         public async Task<IActionResult> GetBusByIdAsync(int id)
         {
             try
@@ -69,7 +70,7 @@ namespace MyProjectTravel.Controllers
                     return View();
                 }
 
-                return View(Bus);
+                return View("GetBusById", Bus);
             }
             catch (Exception ex)
             {
@@ -77,24 +78,24 @@ namespace MyProjectTravel.Controllers
                 return View();
             }
         }
-
-        [HttpGet]
+        
+        [HttpGet("AddBus")]
         public async Task<IActionResult> AddBusAsync()
         {
-            return View(new Bus());
+            return View("AddBus", new Bus());
         }
 
-        [HttpPost]
-        public async Task<IActionResult> AddBusAsync(BusDTO model)
+        [HttpPost("AddBus")]
+        public async Task<IActionResult> AddBusAsync(Bus BusModel)
         {
             if (!ModelState.IsValid)
             {
-                return View(model); // Retorna la vista con los errores de validación
+                return View(BusModel); // Retorna la vista con los errores de validación
             }
 
             try
             {
-                var response = await _busService.AddBusAsync(model);
+                var response = await _busService.AddBusAsync(BusModel);
                 
                 if (response == null)
                 {
@@ -106,66 +107,68 @@ namespace MyProjectTravel.Controllers
                     PropertyNameCaseInsensitive = true
                 });
 
-                return RedirectToAction("GetAllBusAsync"); // Redirige a la lista de Buss
+                return RedirectToAction("GetAll"); // Redirige a la lista de Buss
             }
             catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, $"Error al agregar el Bus: {ex.Message}");
-                return View(model);
+                return View(BusModel);
             }
         }
 
-        [HttpGet]
+        [HttpGet("UpdateBus")]
         public async Task<IActionResult> UpdateBusAsync(int id)
         {
             var response = await _busService.GetBusByIdAsync(id);
 
             if (response == null)
             {
-                return Unauthorized(new { message = "Credenciales incorrectas" });
-            }
-
-            var busEntity = JsonSerializer.Deserialize<Bus>(response, new JsonSerializerOptions
-            {
-                PropertyNameCaseInsensitive = true
-            });
-
-            if (busEntity == null)
-            {
-                ModelState.AddModelError(string.Empty, "No se encontró el Bus especificado.");
-                return View();
-            }
-
-            return View(busEntity);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> UpdateBusAsync(int id, BusDTO model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model); // Retorna la vista con los errores de validación
+                return NotFound(new { message = "No se encontró el Bus especificado." });
             }
 
             try
             {
-                var response = await _busService.UpdateBusAsync(id, model);
-                
-                if (response == null)
+                var busEntity = JsonSerializer.Deserialize<Bus>(response, new JsonSerializerOptions
                 {
-                    return Unauthorized(new { message = "Credenciales incorrectas" });
+                    PropertyNameCaseInsensitive = true
+                });
+
+                if (busEntity == null)
+                {
+                    return NotFound(new { message = "No se pudo procesar la respuesta del servidor." });
                 }
 
-                return RedirectToAction("GetAllBusAsync");
+                return View("UpdateBus", busEntity);
+            }
+            catch (JsonException ex)
+            {
+                return BadRequest(new { message = $"Error de deserialización: {ex.Message}" });
+            }
+        }
+
+        [HttpPost("UpdateBus")]
+        public async Task<IActionResult> UpdateBusAsync([FromForm] Bus BusModel)
+        {
+            try
+            {
+                var response = await _busService.UpdateBusAsync(BusModel.idBus, BusModel);
+
+                if (response == null)
+                {
+                    ModelState.AddModelError(string.Empty, "Error al actualizar el Bus.");
+                    return View(BusModel);
+                }
+
+                return RedirectToAction("GetAll");
             }
             catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, $"Error al actualizar el Bus: {ex.Message}");
-                return View(model);
+                return View(BusModel);
             }
         }
 
-        [HttpPost]
+        [HttpPost("DeleteBus")]
         public async Task<IActionResult> DeleteBusAsync(int id)
         {
 
@@ -177,7 +180,7 @@ namespace MyProjectTravel.Controllers
                     return Unauthorized(new { message = "Credenciales incorrectas" });
                 }
 
-                return RedirectToAction("GetAllBusAsync"); // Redirige a la lista de Buss
+                return RedirectToAction("GetAll");
             }
             catch (Exception ex)
             {

@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
+using MyProyectTravel.Services;
 using MyProyectTravel.Services.Public;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,11 +16,40 @@ builder.Services.AddHttpClient<PasajesService>(client =>
     client.BaseAddress = new Uri("https://localhost:7215/api/Account/");
 });
 
+builder.Services.AddHttpClient<BusService>(client =>
+{
+    client.BaseAddress = new Uri("https://localhost:7215/api/Bus/");
+});
 
-//builder.Services.AddHttpClient<AccountApiClient>(client =>
-//{
-//    client.BaseAddress = new Uri("https://localhost:7215/api/");  // Cambia esto por la URL real de tu API
-//});
+builder.Services.AddHttpClient<ItineraryService>(client =>
+{
+    client.BaseAddress = new Uri("https://localhost:7215/api/Itinerario/");
+});
+
+builder.Services.AddHttpClient<StationService>(client =>
+{
+    client.BaseAddress = new Uri("https://localhost:7215/api/Estacion/");
+});
+
+builder.Services.AddHttpClient<TicketService>(client =>
+{
+    client.BaseAddress = new Uri("https://localhost:7215/api/Boleto/");
+});
+
+builder.Services.AddHttpClient<UserService>(client =>
+{
+    client.BaseAddress = new Uri("https://localhost:7215/api/Usuario/");
+});
+
+builder.Services.AddHttpClient<WorkerService>(client =>
+{
+    client.BaseAddress = new Uri("https://localhost:7215/api/Trabajador/");
+});
+
+builder.Services.AddHttpClient<SeatingService>(client =>
+{
+    client.BaseAddress = new Uri("https://localhost:7215/api/Seating/");
+});
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>

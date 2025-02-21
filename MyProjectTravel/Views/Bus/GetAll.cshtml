@@ -1,0 +1,60 @@
+﻿@model IEnumerable<MyProjectTravel.Models.Bus>
+
+@{
+    ViewData["Title"] = "GetAll";
+}
+
+<h1>Bus</h1>
+
+<p>
+    <a asp-controller="Bus" asp-action="AddBus" class="btn btn-primary">Ingresar un nuevo Bus</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.placa)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.model)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.numColumns)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.numRows)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.placa)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.model)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.numColumns)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.numRows)
+                    </td>
+                    <td>
+                        <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                            <a asp-controller="Bus" asp-action="UpdateBus" asp-route-id="@item.idBus" class="btn btn-success">Edit</a>
+                            <a asp-controller="Bus" asp-action="GetBusById" asp-route-id="@item.idBus" class="btn btn-warning">Detalles</a>
+                            <form asp-controller="Bus" asp-action="DeleteBus" method="post" style="display:inline;">
+                                <input type="hidden" name="id" value="@item.idBus" />
+                                <button type="submit" class="btn btn-danger">AgregarSi</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            }
+    </tbody>
+</table>

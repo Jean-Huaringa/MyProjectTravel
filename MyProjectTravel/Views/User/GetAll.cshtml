@@ -1,0 +1,69 @@
+﻿@model IEnumerable<MyProjectTravel.Models.User>
+
+@{
+    ViewData["Title"] = "GetAllUsuario";
+}
+
+
+<h1>Usuario</h1>
+
+
+<p>
+    <a asp-controller="Usuario" asp-action="AddUsuario" class="btn btn-primary">Ingresar un nuevo Usuario</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.userName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.lastname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.typeDocument)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.numDocument)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.mail)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.userName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.lastname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.typeDocument)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.numDocument)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.mail)
+                </td>
+                <td>
+                    <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                        <a asp-controller="Usuario" asp-action="UpdateUsuario" asp-route-id="@item.idUsr" class="btn btn-success">Edit</a>
+                        <a asp-controller="Usuario" asp-action="GetUsuarioById" asp-route-id="@item.idUsr" class="btn btn-warning">Detalles</a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

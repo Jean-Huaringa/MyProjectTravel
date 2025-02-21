@@ -6,6 +6,7 @@ using System.Text.Json;
 
 namespace MyProjectTravel.Controllers
 {
+    [Route("Ticket")]
     public class TicketController : Controller
     {
         private readonly TicketService _ticketService;
@@ -15,7 +16,7 @@ namespace MyProjectTravel.Controllers
             _ticketService = ticketService;
         }
 
-        [HttpGet]
+        [HttpGet("GetAll")]
         public async Task<IActionResult> GetAllTicketAsync()
         {
             try
@@ -37,7 +38,7 @@ namespace MyProjectTravel.Controllers
                     return View(new List<Ticket>());
                 }
 
-                return View(tickets);
+                return View("GetAll", tickets);
             }
             catch (Exception ex)
             {
@@ -46,7 +47,7 @@ namespace MyProjectTravel.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpGet("GetTicketById")]
         public async Task<IActionResult> GetTicketByIdAsync(int id)
         {
             try
@@ -78,23 +79,23 @@ namespace MyProjectTravel.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpGet("AddTicket")]
         public async Task<IActionResult> AddTicketAsync()
         {
             return View(new Ticket());
         }
 
-        [HttpPost]
-        public async Task<IActionResult> AddTicketAsync(TicketDTO model)
+        [HttpPost("AddTicket")]
+        public async Task<IActionResult> AddTicketAsync(Ticket TicketModel)
         {
             if (!ModelState.IsValid)
             {
-                return View(model); // Retorna la vista con los errores de validación
+                return View(TicketModel); // Retorna la vista con los errores de validación
             }
 
             try
             {
-                var response = await _ticketService.AddTicketAsync(model);
+                var response = await _ticketService.AddTicketAsync(TicketModel);
                 
                 if (response == null)
                 {
@@ -111,11 +112,11 @@ namespace MyProjectTravel.Controllers
             catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, $"Error al agregar el ticket: {ex.Message}");
-                return View(model);
+                return View(TicketModel);
             }
         }
 
-        [HttpGet]
+        [HttpGet("UpdateTicket")]
         public async Task<IActionResult> UpdateTicketAsync(int id)
         {
             var response = await _ticketService.GetTicketByIdAsync(id);
@@ -139,17 +140,17 @@ namespace MyProjectTravel.Controllers
             return View(busEntity);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> UpdateTicketAsync(int id, TicketDTO model)
+        [HttpPost("UpdateTicket")]
+        public async Task<IActionResult> UpdateTicketAsync(int id, Ticket TicketModel)
         {
             if (!ModelState.IsValid)
             {
-                return View(model); // Retorna la vista con los errores de validación
+                return View(TicketModel); // Retorna la vista con los errores de validación
             }
 
             try
             {
-                var response = await _ticketService.UpdateTicketAsync(id, model);
+                var response = await _ticketService.UpdateTicketAsync(id, TicketModel);
                 
                 if (response == null)
                 {
@@ -161,11 +162,11 @@ namespace MyProjectTravel.Controllers
             catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, $"Error al actualizar el ticket: {ex.Message}");
-                return View(model);
+                return View(TicketModel);
             }
         }
 
-        [HttpPost]
+        [HttpPost("DeleteTicket")]
         public async Task<IActionResult> DeleteTicketAsync(int id)
         {
 

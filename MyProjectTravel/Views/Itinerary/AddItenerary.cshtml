@@ -1,0 +1,63 @@
+﻿@model MyProjectTravel.Models.Itinerary
+
+@{
+    ViewData["Title"] = "AddItinerario";
+}
+
+<h1>Itinerario</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AddItinerario">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="idOrigin" class="control-label"></label>
+                <select class="form-control" id="IdOrigen" name="IdOrigen" required asp-items="ViewBag.Estaciones">
+                    <option value="">Seleccione ciudad de origen</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="idDestination" class="control-label"></label>
+                <select class="form-control" id="IdDestino" name="IdDestino" required asp-items="ViewBag.Estaciones">
+                    <option value="">Seleccione ciudad de llegada</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="idWrk" class="control-label"></label>
+                <select class="form-control" id="IdTbj" name="IdTbj" required asp-items="ViewBag.Trabajador">
+                    <option value="">Seleccione un trabajador</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="idBus" class="control-label"></label>
+                <select class="form-control" id="IdBus" name="IdBus" required asp-items="ViewBag.Bus">
+                    <option value="">Seleccione un bus</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="startDate" class="control-label"></label>
+                <input asp-for="startDate" class="form-control" />
+                <span asp-validation-for="startDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="arrivalDate" class="control-label"></label>
+                <input asp-for="arrivalDate" class="form-control" />
+                <span asp-validation-for="arrivalDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="price" class="control-label"></label>
+                <input asp-for="price" class="form-control" />
+                <span asp-validation-for="price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

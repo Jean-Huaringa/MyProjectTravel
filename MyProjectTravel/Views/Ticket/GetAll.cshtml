@@ -1,0 +1,60 @@
+﻿@model IEnumerable<MyProjectTravel.Models.Ticket>
+
+@{
+    ViewData["Title"] = "GetAllBoleto";
+}
+
+<h1>Boleto</h1>
+
+<p>
+    <a asp-controller="Boleto" asp-action="AddBoleto" class="btn btn-primary">Ingresar un nuevo Boleto</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.idUsr)</th>
+            <th>@Html.DisplayNameFor(model => model.idWrk)</th>
+            <th>@Html.DisplayNameFor(model => model.idItn)</th>
+            <th>@Html.DisplayNameFor(model => model.idBus)</th>
+            <th>@Html.DisplayNameFor(model => model.row)</th>
+            <th>@Html.DisplayNameFor(model => model.column)</th>
+            <th>@Html.DisplayNameFor(model => model.paymentMethod)</th>
+            <th>@Html.DisplayNameFor(model => model.amount)</th>
+            <th>@Html.DisplayNameFor(model => model.userName)</th>
+            <th>@Html.DisplayNameFor(model => model.lastname)</th>
+            <th>@Html.DisplayNameFor(model => model.age)</th>
+            <th>@Html.DisplayNameFor(model => model.typeDocument)</th>
+            <th>@Html.DisplayNameFor(model => model.numDocument)</th>
+            <th>@Html.DisplayNameFor(model => model.creationDate)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.idUsr)</td>
+                <td>@Html.DisplayFor(modelItem => item.idWrk)</td>
+                <td>@Html.DisplayFor(modelItem => item.idItn)</td>
+                <td>@Html.DisplayFor(modelItem => item.idBus)</td>
+                <td>@Html.DisplayFor(modelItem => item.row)</td>
+                <td>@Html.DisplayFor(modelItem => item.column)</td>
+                <td>@Html.DisplayFor(modelItem => item.paymentMethod)</td>
+                <td>@Html.DisplayFor(modelItem => item.amount)</td>
+                <td>@Html.DisplayFor(modelItem => item.userName)</td>
+                <td>@Html.DisplayFor(modelItem => item.lastname)</td>
+                <td>@Html.DisplayFor(modelItem => item.age)</td>
+                <td>@Html.DisplayFor(modelItem => item.typeDocument)</td>
+                <td>@Html.DisplayFor(modelItem => item.numDocument)</td>
+                <td>@Html.DisplayFor(modelItem => item.creationDate)</td>
+                <td>
+                    <div class="btn-group">
+                        <a asp-controller="Boleto" asp-action="UpdateBoleto" asp-route-id="@item.idTck" class="btn btn-success">Edit</a>
+                        <a asp-controller="Boleto" asp-action="GetBoletoById" asp-route-id="@item.idTck" class="btn btn-warning">Detalles</a>
+                        <a asp-controller="Boleto" asp-action="DeleteBoleto" asp-route-id="@item.idTck" class="btn btn-danger">Eliminar</a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

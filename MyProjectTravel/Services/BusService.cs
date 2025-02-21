@@ -1,4 +1,5 @@
-﻿using MyProjectTravel.Models.DTO;
+﻿using MyProjectTravel.Models;
+using MyProjectTravel.Models.DTO;
 using System.Text;
 using System.Text.Json;
 
@@ -45,20 +46,18 @@ namespace MyProyectTravel.Services
             }
         }
 
-        public async Task<string> AddBusAsync(BusDTO model)
+        public async Task<string> AddBusAsync(Bus BusModel)
         {
             try
             {
-                var jsonContent = JsonSerializer.Serialize(model);
+                var jsonContent = JsonSerializer.Serialize(BusModel);
                 var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
-                var response = await _httpClient.PostAsync("api/Bus/add", content);
+                var response = await _httpClient.PostAsync("add", content);
 
                 response.EnsureSuccessStatusCode();
 
                 return await response.Content.ReadAsStringAsync();
-
-                throw new Exception($"Error al agregar el Bus: {response.ReasonPhrase}");
             }
             catch (Exception ex)
             {
@@ -66,14 +65,14 @@ namespace MyProyectTravel.Services
             }
         }
 
-        public async Task<string> UpdateBusAsync(int id, BusDTO model)
+        public async Task<string> UpdateBusAsync(int id, Bus BusModel)
         {
             try
             {
-                var jsonContent = JsonSerializer.Serialize(model);
+                var jsonContent = JsonSerializer.Serialize(BusModel);
                 var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
-                var response = await _httpClient.PutAsync($"api/Bus/update/{id}", content);
+                var response = await _httpClient.PutAsync($"update/{id}", content);
 
                 response.EnsureSuccessStatusCode();
                 
@@ -90,7 +89,7 @@ namespace MyProyectTravel.Services
         {
             try
             {
-                var response = await _httpClient.DeleteAsync($"api/Bus/delete/{id}");
+                var response = await _httpClient.DeleteAsync($"delete/{id}");
 
                 response.EnsureSuccessStatusCode();
 

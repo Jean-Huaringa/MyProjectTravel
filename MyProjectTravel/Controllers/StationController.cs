@@ -6,21 +6,22 @@ using System.Text.Json;
 
 namespace MyProjectTravel.Controllers
 {
-    public class StatinoController : Controller
+    [Route("Station")]
+    public class StationController : Controller
     {
         private readonly StationService _stationService;
 
-        public StatinoController(StationService stationService)
+        public StationController(StationService stationService)
         {
             _stationService = stationService;
         }
 
-        [HttpGet]
+        [HttpGet("GetAll")]
         public async Task<IActionResult> GetAllStationAsync()
         {
             try
             {
-                var response = await _statinoService.GetAllStationAsync();
+                var response = await _stationService.GetAllStationAsync();
                 if (response == null)
                 {
                     return Unauthorized(new { message = "Credenciales incorrectas" });
@@ -37,7 +38,7 @@ namespace MyProjectTravel.Controllers
                     return View(new List<Station>());
                 }
 
-                return View(Stations);
+                return View("GetAll", Stations);
             }
             catch (Exception ex)
             {
@@ -46,12 +47,12 @@ namespace MyProjectTravel.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpGet("GetStationById")]
         public async Task<IActionResult> GetStationByIdAsync(int id)
         {
             try
             {
-                var response = await _statinoService.GetStationByIdAsync(id);
+                var response = await _stationService.GetStationByIdAsync(id);
                 
                 if (response == null)
                 {
@@ -78,23 +79,23 @@ namespace MyProjectTravel.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpGet("AddStation")]
         public async Task<IActionResult> AddStationAsync()
         {
             return View(new Station());
         }
 
-        [HttpPost]
-        public async Task<IActionResult> AddStationAsync(StationDTO model)
+        [HttpPost("AddStation")]
+        public async Task<IActionResult> AddStationAsync(Station StationModel)
         {
             if (!ModelState.IsValid)
             {
-                return View(model); // Retorna la vista con los errores de validación
+                return View(StationModel); // Retorna la vista con los errores de validación
             }
 
             try
             {
-                var response = await _statinoService.AddStationAsync(model);
+                var response = await _stationService.AddStationAsync(StationModel);
                 
                 if (response == null)
                 {
@@ -111,11 +112,11 @@ namespace MyProjectTravel.Controllers
             catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, $"Error al agregar el Station: {ex.Message}");
-                return View(model);
+                return View(StationModel);
             }
         }
 
-        [HttpGet]
+        [HttpGet("UpdateStation")]
         public async Task<IActionResult> UpdateStationAsync(int id)
         {
             var response = await _stationService.GetStationByIdAsync(id);
@@ -139,17 +140,17 @@ namespace MyProjectTravel.Controllers
             return View(itineraryEntity);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> UpdateStationAsync(int id, StationDTO model)
+        [HttpPost("UpdateStation")]
+        public async Task<IActionResult> UpdateStationAsync(int id, Station StationModel)
         {
             if (!ModelState.IsValid)
             {
-                return View(model); // Retorna la vista con los errores de validación
+                return View(StationModel); // Retorna la vista con los errores de validación
             }
 
             try
             {
-                var response = await _statinoService.UpdateStationAsync(id, model);
+                var response = await _stationService.UpdateStationAsync(id, StationModel);
                 
                 if (response == null)
                 {
@@ -161,17 +162,17 @@ namespace MyProjectTravel.Controllers
             catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, $"Error al actualizar el Station: {ex.Message}");
-                return View(model);
+                return View(StationModel);
             }
         }
 
-        [HttpPost]
+        [HttpPost("DeleteStation")]
         public async Task<IActionResult> DeleteStationAsync(int id)
         {
 
             try
             {
-                var response = await _statinoService.DeleteStationAsync(id);
+                var response = await _stationService.DeleteStationAsync(id);
                 if (response == null)
                 {
                     return Unauthorized(new { message = "Credenciales incorrectas" });

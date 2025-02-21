@@ -1,0 +1,41 @@
+﻿@model MyProjectTravel.Models.Bus
+
+@{
+    ViewData["Title"] = "GetBusById";
+}
+
+<h1>Bus</h1>
+
+<div>
+    <h4>Bus</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.placa)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.placa)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.model)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.model)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.numColumns)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.numColumns)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.numRows)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.numRows)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

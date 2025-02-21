@@ -7,6 +7,7 @@ using System.Text.Json;
 
 namespace MyProjectTravel.Controllers
 {
+    [Route("User")]
     [Authorize(Roles = "admin")]
     public class UserController : Controller
     {
@@ -17,7 +18,7 @@ namespace MyProjectTravel.Controllers
             _userService = userService;
         }
 
-        [HttpGet]
+        [HttpGet("GetAll")]
         public async Task<IActionResult> GetAllUserAsync()
         {
             try
@@ -39,7 +40,7 @@ namespace MyProjectTravel.Controllers
                     return View(new List<User>());
                 }
 
-                return View(Users);
+                return View("GetAll", Users);
             }
             catch (Exception ex)
             {
@@ -48,7 +49,7 @@ namespace MyProjectTravel.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpGet("GetUserById")]
         public async Task<IActionResult> GetUserByIdAsync(int id)
         {
             try
@@ -80,23 +81,23 @@ namespace MyProjectTravel.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpGet("AddUser")]
         public async Task<IActionResult> AddUserAsync()
         {
             return View(new User());
         }
 
-        [HttpPost]
-        public async Task<IActionResult> AddUserAsync(UserDTO model)
+        [HttpPost("AddUser")]
+        public async Task<IActionResult> AddUserAsync(User UserModel)
         {
             if (!ModelState.IsValid)
             {
-                return View(model); // Retorna la vista con los errores de validación
+                return View(UserModel); // Retorna la vista con los errores de validación
             }
 
             try
             {
-                var response = await _userService.AddUserAsync(model);
+                var response = await _userService.AddUserAsync(UserModel);
                 
                 if (response == null)
                 {
@@ -113,11 +114,11 @@ namespace MyProjectTravel.Controllers
             catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, $"Error al agregar el User: {ex.Message}");
-                return View(model);
+                return View(UserModel);
             }
         }
 
-        [HttpGet]
+        [HttpGet("UpdateUser")]
         public async Task<IActionResult> UpdateUserAsync(int id)
         {
             var response = await _userService.GetUserByIdAsync(id);
@@ -141,17 +142,17 @@ namespace MyProjectTravel.Controllers
             return View(busEntity);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> UpdateUserAsync(int id, UserDTO model)
+        [HttpPost("UpdateUser")]
+        public async Task<IActionResult> UpdateUserAsync(int id, User UserModel)
         {
             if (!ModelState.IsValid)
             {
-                return View(model); // Retorna la vista con los errores de validación
+                return View(UserModel); // Retorna la vista con los errores de validación
             }
 
             try
             {
-                var response = await _userService.UpdateUserAsync(id, model);
+                var response = await _userService.UpdateUserAsync(id, UserModel);
                 
                 if (response == null)
                 {
@@ -163,11 +164,11 @@ namespace MyProjectTravel.Controllers
             catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, $"Error al actualizar el User: {ex.Message}");
-                return View(model);
+                return View(UserModel);
             }
         }
 
-        [HttpPost]
+        [HttpPost("DeleteUser")]
         public async Task<IActionResult> DeleteUserAsync(int id)
         {
 

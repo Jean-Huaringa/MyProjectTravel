@@ -1,0 +1,51 @@
+﻿@model IEnumerable<MyProjectTravel.Models.Station>
+
+@{
+    ViewData["Title"] = "GetAllEstacion";
+}
+
+<h1>Estación</h1>
+
+<p>
+    <a asp-controller="Estacion" asp-action="AddEstacion" class="btn btn-primary">Ingresar una nueva estación</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.city)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.street)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.pseudonym)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.city)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.street)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.pseudonym)
+                </td>
+                <td>
+                    <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                        <a asp-controller="Estacion" asp-action="UpdateEstacion" asp-route-id="@item.idStn" class="btn btn-success">Editar</a>
+                        <a asp-controller="Estacion" asp-action="GetEstacionById" asp-route-id="@item.idStn" class="btn btn-warning">Detalles</a>
+                        <a asp-controller="Estacion" asp-action="DeleteEstacion" asp-route-id="@item.idStn" class="btn btn-danger">Eliminar</a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

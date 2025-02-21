@@ -6,6 +6,7 @@ using System.Text.Json;
 
 namespace MyProjectTravel.Controllers
 {
+    [Route("Itinerary")]
     public class ItineraryController : Controller
     {
         private readonly ItineraryService _itineraryService;
@@ -15,7 +16,7 @@ namespace MyProjectTravel.Controllers
             _itineraryService = itineraryService;
         }
 
-        [HttpGet]
+        [HttpGet("GetAll")]
         public async Task<IActionResult> GetAllIteneraryAsync()
         {
             try
@@ -37,7 +38,7 @@ namespace MyProjectTravel.Controllers
                     return View(new List<Itinerary>());
                 }
 
-                return View(Itenerarys);
+                return View("GetAll", Itenerarys);
             }
             catch (Exception ex)
             {
@@ -46,7 +47,7 @@ namespace MyProjectTravel.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpGet("GetIteneraryById")]
         public async Task<IActionResult> GetIteneraryByIdAsync(int id)
         {
             try
@@ -69,7 +70,7 @@ namespace MyProjectTravel.Controllers
                     return View();
                 }
 
-                return View(Itenerary);
+                return View("GetIteneraryById", Itenerary);
             }
             catch (Exception ex)
             {
@@ -78,23 +79,23 @@ namespace MyProjectTravel.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpGet("AddItenerary")]
         public async Task<IActionResult> AddIteneraryAsync()
         {
             return View(new Itinerary());
         }
 
-        [HttpPost]
-        public async Task<IActionResult> AddIteneraryAsync(ItineraryDTO model)
+        [HttpPost("AddItenerary")]
+        public async Task<IActionResult> AddIteneraryAsync(Itinerary ItineraryModel)
         {
             if (!ModelState.IsValid)
             {
-                return View(model);
+                return View(ItineraryModel);
             }
 
             try
             {
-                var response = await _itineraryService.AddIteneraryAsync(model);
+                var response = await _itineraryService.AddIteneraryAsync(ItineraryModel);
                 
                 if (response == null)
                 {
@@ -111,11 +112,11 @@ namespace MyProjectTravel.Controllers
             catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, $"Error al agregar el Itenerary: {ex.Message}");
-                return View(model);
+                return View(ItineraryModel);
             }
         }
 
-        [HttpGet]
+        [HttpGet("UpdateBus")]
         public async Task<IActionResult> UpdateBusAsync(int id)
         {
             var response = await _itineraryService.GetIteneraryByIdAsync(id);
@@ -139,17 +140,17 @@ namespace MyProjectTravel.Controllers
             return View(itineraryEntity);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> UpdateIteneraryAsync(int id, ItineraryDTO model)
+        [HttpPost("UpdateBus")]
+        public async Task<IActionResult> UpdateIteneraryAsync(int id, Itinerary ItineraryModel)
         {
             if (!ModelState.IsValid)
             {
-                return View(model);
+                return View(ItineraryModel);
             }
 
             try
             {
-                var response = await _itineraryService.UpdateIteneraryAsync(id, model);
+                var response = await _itineraryService.UpdateIteneraryAsync(id, ItineraryModel);
                 
                 if (response == null)
                 {
@@ -161,11 +162,11 @@ namespace MyProjectTravel.Controllers
             catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, $"Error al actualizar el Itenerary: {ex.Message}");
-                return View(model);
+                return View(ItineraryModel);
             }
         }
 
-        [HttpPost]
+        [HttpPost("DeleteItenerary")]
         public async Task<IActionResult> DeleteIteneraryAsync(int id)
         {
 

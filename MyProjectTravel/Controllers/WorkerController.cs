@@ -7,6 +7,7 @@ using System.Text.Json;
 
 namespace MyProjectTravel.Controllers
 {
+    [Route("Worker")]
     [Authorize(Roles = "admin")]
     public class WorkerController : Controller
     {
@@ -17,7 +18,7 @@ namespace MyProjectTravel.Controllers
             _workerService = workerService;
         }
 
-        [HttpGet]
+        [HttpGet("GetAll")]
         public async Task<IActionResult> GetAllWorkerAsync()
         {
             try
@@ -48,7 +49,7 @@ namespace MyProjectTravel.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpGet("GetWorker")]
         public async Task<IActionResult> GetWorkerByIdAsync(int id)
         {
             try
@@ -80,23 +81,23 @@ namespace MyProjectTravel.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpGet("AddWorker")]
         public async Task<IActionResult> AddWorkerAsync()
         {
             return View(new Worker());
         }
 
-        [HttpPost]
-        public async Task<IActionResult> AddWorkerAsync(WorkerDTO model)
+        [HttpPost("AddWorker")]
+        public async Task<IActionResult> AddWorkerAsync(Worker WorkerModel)
         {
             if (!ModelState.IsValid)
             {
-                return View(model); // Retorna la vista con los errores de validación
+                return View(WorkerModel); // Retorna la vista con los errores de validación
             }
 
             try
             {
-                var response = await _workerService.AddWorkerAsync(model);
+                var response = await _workerService.AddWorkerAsync(WorkerModel);
                 
                 if (response == null)
                 {
@@ -113,11 +114,11 @@ namespace MyProjectTravel.Controllers
             catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, $"Error al agregar el Worker: {ex.Message}");
-                return View(model);
+                return View(WorkerModel);
             }
         }
 
-        [HttpGet]
+        [HttpGet("UpdateWorker")]
         public async Task<IActionResult> UpdateWorkerAsync(int id)
         {
             var response = await _workerService.GetWorkerByIdAsync(id);
@@ -141,17 +142,17 @@ namespace MyProjectTravel.Controllers
             return View(busEntity);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> UpdateWorkerAsync(int id, WorkerDTO model)
+        [HttpPost("UpdateWorker")]
+        public async Task<IActionResult> UpdateWorkerAsync(int id, Worker WorkerModel)
         {
             if (!ModelState.IsValid)
             {
-                return View(model); // Retorna la vista con los errores de validación
+                return View(WorkerModel); // Retorna la vista con los errores de validación
             }
 
             try
             {
-                var response = await _workerService.UpdateWorkerAsync(id, model);
+                var response = await _workerService.UpdateWorkerAsync(id, WorkerModel);
 
                 if (response == null)
                 {
@@ -163,11 +164,11 @@ namespace MyProjectTravel.Controllers
             catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, $"Error al actualizar el Worker: {ex.Message}");
-                return View(model);
+                return View(WorkerModel);
             }
         }
 
-        [HttpPost]
+        [HttpPost("DeleteWorker")]
         public async Task<IActionResult> DeleteWorkerAsync(int id)
         {
 

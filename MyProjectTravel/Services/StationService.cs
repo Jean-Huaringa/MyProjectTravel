@@ -1,4 +1,4 @@
-﻿using MyProjectTravel.Models.DTO;
+﻿using MyProjectTravel.Models;
 using System.Text;
 using System.Text.Json;
 
@@ -46,14 +46,14 @@ namespace MyProyectTravel.Services
             }
         }
 
-        public async Task<string> AddStationAsync(StationDTO model)
+        public async Task<string> AddStationAsync(Station StationModel)
         {
             try
             {
-                var jsonContent = JsonSerializer.Serialize(model);
+                var jsonContent = JsonSerializer.Serialize(StationModel);
                 var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
-                var response = await _httpClient.PostAsync("api/Estacion/add", content);
+                var response = await _httpClient.PostAsync("add", content);
 
                 response.EnsureSuccessStatusCode();
 
@@ -67,14 +67,14 @@ namespace MyProyectTravel.Services
             }
         }
 
-        public async Task<string> UpdateStationAsync(int id, StationDTO model)
+        public async Task<string> UpdateStationAsync(int id, Station StationModel)
         {
             try
             {
-                var jsonContent = JsonSerializer.Serialize(model);
+                var jsonContent = JsonSerializer.Serialize(StationModel);
                 var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
-                var response = await _httpClient.PutAsync($"api/Estacion/update/{id}", content);
+                var response = await _httpClient.PutAsync($"update/{id}", content);
 
                 response.EnsureSuccessStatusCode();
                 
@@ -91,7 +91,7 @@ namespace MyProyectTravel.Services
         {
             try
             {
-                var response = await _httpClient.DeleteAsync($"api/Estacion/delete/{id}");
+                var response = await _httpClient.DeleteAsync($"delete/{id}");
 
                 response.EnsureSuccessStatusCode();
 

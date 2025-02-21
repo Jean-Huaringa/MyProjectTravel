@@ -1,4 +1,5 @@
-﻿using MyProjectTravel.Models.DTO;
+﻿using MyProjectTravel.Models;
+using MyProjectTravel.Models.DTO;
 using System.Text;
 using System.Text.Json;
 
@@ -45,14 +46,14 @@ namespace MyProyectTravel.Services
             }
         }
 
-        public async Task<string> AddIteneraryAsync(ItineraryDTO model)
+        public async Task<string> AddIteneraryAsync(Itinerary ItineraryModel)
         {
             try
             {
-                var jsonContent = JsonSerializer.Serialize(model);
+                var jsonContent = JsonSerializer.Serialize(ItineraryModel);
                 var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
-                var response = await _httpClient.PostAsync("api/Itinerario/add", content);
+                var response = await _httpClient.PostAsync("add", content);
 
                 response.EnsureSuccessStatusCode();
 
@@ -66,14 +67,14 @@ namespace MyProyectTravel.Services
             }
         }
 
-        public async Task<string> UpdateIteneraryAsync(int id, ItineraryDTO model)
+        public async Task<string> UpdateIteneraryAsync(int id, Itinerary ItineraryModel)
         {
             try
             {
-                var jsonContent = JsonSerializer.Serialize(model);
+                var jsonContent = JsonSerializer.Serialize(ItineraryModel);
                 var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
-                var response = await _httpClient.PutAsync($"api/Itinerario/update/{id}", content);
+                var response = await _httpClient.PutAsync($"update/{id}", content);
 
                 response.EnsureSuccessStatusCode();
                 
@@ -90,7 +91,7 @@ namespace MyProyectTravel.Services
         {
             try
             {
-                var response = await _httpClient.DeleteAsync($"api/Itinerario/delete/{id}");
+                var response = await _httpClient.DeleteAsync($"delete/{id}");
 
                 response.EnsureSuccessStatusCode();
 
