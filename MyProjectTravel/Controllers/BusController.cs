@@ -15,6 +15,7 @@ namespace MyProjectTravel.Controllers
             _busService = busService;
         }
 
+        [HttpGet]
         public async Task<IActionResult> GetAllBusAsync()
         {
             try
@@ -45,6 +46,7 @@ namespace MyProjectTravel.Controllers
             }
         }
 
+        [HttpGet]
         public async Task<IActionResult> GetBusByIdAsync(int id)
         {
             try
@@ -76,6 +78,13 @@ namespace MyProjectTravel.Controllers
             }
         }
 
+        [HttpGet]
+        public async Task<IActionResult> AddBusAsync()
+        {
+            return View(new Bus());
+        }
+
+        [HttpPost]
         public async Task<IActionResult> AddBusAsync(BusDTO model)
         {
             if (!ModelState.IsValid)
@@ -106,6 +115,31 @@ namespace MyProjectTravel.Controllers
             }
         }
 
+        [HttpGet]
+        public async Task<IActionResult> UpdateBusAsync(int id)
+        {
+            var response = await _busService.GetBusByIdAsync(id);
+
+            if (response == null)
+            {
+                return Unauthorized(new { message = "Credenciales incorrectas" });
+            }
+
+            var busEntity = JsonSerializer.Deserialize<Bus>(response, new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            });
+
+            if (busEntity == null)
+            {
+                ModelState.AddModelError(string.Empty, "No se encontró el Bus especificado.");
+                return View();
+            }
+
+            return View(busEntity);
+        }
+
+        [HttpPost]
         public async Task<IActionResult> UpdateBusAsync(int id, BusDTO model)
         {
             if (!ModelState.IsValid)
@@ -131,6 +165,7 @@ namespace MyProjectTravel.Controllers
             }
         }
 
+        [HttpPost]
         public async Task<IActionResult> DeleteBusAsync(int id)
         {
 

@@ -8,13 +8,14 @@ namespace MyProjectTravel.Controllers
 {
     public class StatinoController : Controller
     {
-        private readonly StationService _statinoService;
+        private readonly StationService _stationService;
 
-        public StatinoController(StationService statinoService)
+        public StatinoController(StationService stationService)
         {
-            _statinoService = statinoService;
+            _stationService = stationService;
         }
 
+        [HttpGet]
         public async Task<IActionResult> GetAllStationAsync()
         {
             try
@@ -45,6 +46,7 @@ namespace MyProjectTravel.Controllers
             }
         }
 
+        [HttpGet]
         public async Task<IActionResult> GetStationByIdAsync(int id)
         {
             try
@@ -76,6 +78,13 @@ namespace MyProjectTravel.Controllers
             }
         }
 
+        [HttpGet]
+        public async Task<IActionResult> AddStationAsync()
+        {
+            return View(new Station());
+        }
+
+        [HttpPost]
         public async Task<IActionResult> AddStationAsync(StationDTO model)
         {
             if (!ModelState.IsValid)
@@ -106,6 +115,31 @@ namespace MyProjectTravel.Controllers
             }
         }
 
+        [HttpGet]
+        public async Task<IActionResult> UpdateStationAsync(int id)
+        {
+            var response = await _stationService.GetStationByIdAsync(id);
+
+            if (response == null)
+            {
+                return Unauthorized(new { message = "Credenciales incorrectas" });
+            }
+
+            var itineraryEntity = JsonSerializer.Deserialize<Bus>(response, new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            });
+
+            if (itineraryEntity == null)
+            {
+                ModelState.AddModelError(string.Empty, "No se encontró el Bus especificado.");
+                return View();
+            }
+
+            return View(itineraryEntity);
+        }
+
+        [HttpPost]
         public async Task<IActionResult> UpdateStationAsync(int id, StationDTO model)
         {
             if (!ModelState.IsValid)
@@ -131,6 +165,7 @@ namespace MyProjectTravel.Controllers
             }
         }
 
+        [HttpPost]
         public async Task<IActionResult> DeleteStationAsync(int id)
         {
 

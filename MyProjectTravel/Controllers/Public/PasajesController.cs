@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MyProjectTravel.Models.DTO;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
 using System.Text;
@@ -15,6 +16,7 @@ namespace MyProjectTravel.Controllers.Public
             _httpClient = httpClientFactory.CreateClient("MyAPI");
         }
 
+        [HttpGet]
         public async Task<IActionResult> Estaciones()
         {
             try
@@ -70,6 +72,7 @@ namespace MyProjectTravel.Controllers.Public
             return View(new List<dynamic>());
         }
 
+        [HttpPost]
         public async Task<IActionResult> Informacion(int id)
         {
             try

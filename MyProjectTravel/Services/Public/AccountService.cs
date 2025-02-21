@@ -2,6 +2,8 @@
 using MyProjectTravel.Models.Acount;
 using System.Text;
 using System.Text.Json;
+using Microsoft.AspNetCore.Mvc;
+using MyProjectTravel.Models;
 
 namespace MyProyectTravel.Services.Public
 {
@@ -68,6 +70,22 @@ namespace MyProyectTravel.Services.Public
             response.EnsureSuccessStatusCode();
 
             return await response.Content.ReadAsStringAsync();
+        }
+
+        public async Task<string> GetUser()
+        {
+            try
+            {
+                var response = await _httpClient.GetAsync("get-user");
+
+                response.EnsureSuccessStatusCode();
+
+                return await response.Content.ReadAsStringAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error al obtener Bus: {ex.Message}", ex);
+            }
         }
     }
 }

@@ -17,6 +17,7 @@ namespace MyProjectTravel.Controllers
             _workerService = workerService;
         }
 
+        [HttpGet]
         public async Task<IActionResult> GetAllWorkerAsync()
         {
             try
@@ -47,6 +48,7 @@ namespace MyProjectTravel.Controllers
             }
         }
 
+        [HttpGet]
         public async Task<IActionResult> GetWorkerByIdAsync(int id)
         {
             try
@@ -78,6 +80,13 @@ namespace MyProjectTravel.Controllers
             }
         }
 
+        [HttpGet]
+        public async Task<IActionResult> AddWorkerAsync()
+        {
+            return View(new Worker());
+        }
+
+        [HttpPost]
         public async Task<IActionResult> AddWorkerAsync(WorkerDTO model)
         {
             if (!ModelState.IsValid)
@@ -108,6 +117,31 @@ namespace MyProjectTravel.Controllers
             }
         }
 
+        [HttpGet]
+        public async Task<IActionResult> UpdateWorkerAsync(int id)
+        {
+            var response = await _workerService.GetWorkerByIdAsync(id);
+
+            if (response == null)
+            {
+                return Unauthorized(new { message = "Credenciales incorrectas" });
+            }
+
+            var busEntity = JsonSerializer.Deserialize<Bus>(response, new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            });
+
+            if (busEntity == null)
+            {
+                ModelState.AddModelError(string.Empty, "No se encontró el Bus especificado.");
+                return View();
+            }
+
+            return View(busEntity);
+        }
+
+        [HttpPost]
         public async Task<IActionResult> UpdateWorkerAsync(int id, WorkerDTO model)
         {
             if (!ModelState.IsValid)
@@ -118,7 +152,7 @@ namespace MyProjectTravel.Controllers
             try
             {
                 var response = await _workerService.UpdateWorkerAsync(id, model);
-                
+
                 if (response == null)
                 {
                     return Unauthorized(new { message = "Credenciales incorrectas" });
@@ -133,6 +167,7 @@ namespace MyProjectTravel.Controllers
             }
         }
 
+        [HttpPost]
         public async Task<IActionResult> DeleteWorkerAsync(int id)
         {
 

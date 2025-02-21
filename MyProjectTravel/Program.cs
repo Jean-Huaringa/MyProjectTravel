@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
-using MyProyectTravel.Data.Public;
+using MyProyectTravel.Services.Public;
 
 var builder = WebApplication.CreateBuilder(args);
 

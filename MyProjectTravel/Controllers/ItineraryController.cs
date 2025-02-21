@@ -6,7 +6,6 @@ using System.Text.Json;
 
 namespace MyProjectTravel.Controllers
 {
-    //[Route("Itinerario")]
     public class ItineraryController : Controller
     {
         private readonly ItineraryService _itineraryService;
@@ -16,6 +15,7 @@ namespace MyProjectTravel.Controllers
             _itineraryService = itineraryService;
         }
 
+        [HttpGet]
         public async Task<IActionResult> GetAllIteneraryAsync()
         {
             try
@@ -46,6 +46,7 @@ namespace MyProjectTravel.Controllers
             }
         }
 
+        [HttpGet]
         public async Task<IActionResult> GetIteneraryByIdAsync(int id)
         {
             try
@@ -77,11 +78,18 @@ namespace MyProjectTravel.Controllers
             }
         }
 
+        [HttpGet]
+        public async Task<IActionResult> AddIteneraryAsync()
+        {
+            return View(new Itinerary());
+        }
+
+        [HttpPost]
         public async Task<IActionResult> AddIteneraryAsync(ItineraryDTO model)
         {
             if (!ModelState.IsValid)
             {
-                return View(model); // Retorna la vista con los errores de validación
+                return View(model);
             }
 
             try
@@ -98,7 +106,7 @@ namespace MyProjectTravel.Controllers
                     PropertyNameCaseInsensitive = true
                 });
 
-                return RedirectToAction("GetAllIteneraryAsync"); // Redirige a la lista de Itenerarys
+                return RedirectToAction("GetAllIteneraryAsync");
             }
             catch (Exception ex)
             {
@@ -107,11 +115,36 @@ namespace MyProjectTravel.Controllers
             }
         }
 
+        [HttpGet]
+        public async Task<IActionResult> UpdateBusAsync(int id)
+        {
+            var response = await _itineraryService.GetIteneraryByIdAsync(id);
+
+            if (response == null)
+            {
+                return Unauthorized(new { message = "Credenciales incorrectas" });
+            }
+
+            var itineraryEntity = JsonSerializer.Deserialize<Bus>(response, new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            });
+
+            if (itineraryEntity == null)
+            {
+                ModelState.AddModelError(string.Empty, "No se encontró el Bus especificado.");
+                return View();
+            }
+
+            return View(itineraryEntity);
+        }
+
+        [HttpPost]
         public async Task<IActionResult> UpdateIteneraryAsync(int id, ItineraryDTO model)
         {
             if (!ModelState.IsValid)
             {
-                return View(model); // Retorna la vista con los errores de validación
+                return View(model);
             }
 
             try
@@ -132,6 +165,7 @@ namespace MyProjectTravel.Controllers
             }
         }
 
+        [HttpPost]
         public async Task<IActionResult> DeleteIteneraryAsync(int id)
         {
 
