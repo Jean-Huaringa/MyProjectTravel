@@ -1,8 +1,4 @@
-﻿using MyProjectTravel.Models.DTO;
-using System.Text;
-using System.Text.Json;
-
-namespace MyProyectTravel.Services
+﻿namespace MyProyectTravel.Services
 {
     public class SeatingService
     {

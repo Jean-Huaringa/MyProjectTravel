@@ -3,8 +3,10 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using MyProjectTravel.Models.Acount;
 using MyProjectTravel.Models.DTO;
-using MyProyectTravel.Data.Public;
+using MyProjectTravel.Models;
+using MyProyectTravel.Services.Public;
 using System.Security.Claims;
+using System.Text.Json;
 
 namespace MyProjectTravel.Controllers.Public
 {
@@ -33,19 +35,19 @@ namespace MyProjectTravel.Controllers.Public
                 return Unauthorized(new { message = "Credenciales incorrectas" });
             }
 
-            var user = JsonSerializer.Deserialize<UserDTO>(response, new JsonSerializerOptions
+            var user = JsonSerializer.Deserialize<User>(response, new JsonSerializerOptions
             {   
                 PropertyNameCaseInsensitive = true
             });
     
-            UserDTO useResponse = user;
+            User useResponse = user;
 
-            var role = user.Worker?.Role ?? "invitado";
+            var role = user.worker?.role ?? "invitado";
 
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, useDto.userName),
-                new Claim(ClaimTypes.Email, useDto.mail),
+                new Claim(ClaimTypes.Name, useResponse.userName),
+                new Claim(ClaimTypes.Email, useResponse.mail),
                 new Claim(ClaimTypes.Email, user.mail),
                 new Claim(ClaimTypes.Role, role)
             };
