@@ -5,6 +5,13 @@ namespace MyProjectTravel.Controllers
     //[Route("Itinerario")]
     public class ItineraryController : Controller
     {
+        private readonly ItineraryService _itineraryService;
+
+        public ItineraryController(ItineraryService itineraryService)
+        {
+            _itineraryService = itineraryService;
+        }
+
         public async Task<IActionResult> GetAllIteneraryAsync()
         {
             try

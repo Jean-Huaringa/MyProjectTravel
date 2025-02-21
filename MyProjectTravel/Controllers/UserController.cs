@@ -6,6 +6,13 @@ namespace MyProjectTravel.Controllers
     [Authorize(Roles = "admin")]
     public class UserController : Controller
     {
+        private readonly UserService _userService;
+
+        public UserController(UserService userService)
+        {
+            _userService = userService;
+        }
+
         public async Task<IActionResult> GetAllUserAsync()
         {
             try

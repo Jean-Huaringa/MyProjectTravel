@@ -4,6 +4,13 @@ namespace MyProjectTravel.Controllers
 {
     public class StatinoController : Controller
     {
+        private readonly StatinoService _statinoService;
+
+        public StatinoController(StatinoService statinoService)
+        {
+            _statinoService = statinoService;
+        }
+
         public async Task<IActionResult> GetAllStationAsync()
         {
             try

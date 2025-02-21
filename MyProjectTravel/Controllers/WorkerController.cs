@@ -6,6 +6,13 @@ namespace MyProjectTravel.Controllers
     [Authorize(Roles = "admin")]
     public class WorkerController : Controller
     {
+        private readonly WorkerService _workerService;
+
+        public WorkerController(WorkerService workerService)
+        {
+            _workerService = workerService;
+        }
+
         public async Task<IActionResult> GetAllWorkerAsync()
         {
             try

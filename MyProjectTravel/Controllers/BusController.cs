@@ -4,6 +4,13 @@ namespace MyProjectTravel.Controllers
 {
     public class BusController : Controller
     {
+        private readonly BusService _busService;
+
+        public BusController(BusService busService)
+        {
+            _busService = busService;
+        }
+
         public async Task<IActionResult> GetAllBusAsync()
         {
             try
