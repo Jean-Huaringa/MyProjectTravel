@@ -1,0 +1,86 @@
+﻿@model MyProjectTravel.Models.DTO.UserDTO
+
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg rounded-4">
+                <div class="card-body p-4">
+                    <h3 class="text-center text-primary">Crear Cuenta</h3>
+
+                    @if (ViewBag.Error != null)
+                    {
+                        <div class="alert alert-danger text-center">@ViewBag.Error</div>
+                    }
+
+                    <form method="post" asp-action="Register">
+
+                        <div class="mb-3">
+                            <label asp-for="userName" class="control-label"></label>
+                            <input asp-for="userName" class="form-control" />
+                            <span asp-validation-for="userName" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="lastname" class="control-label"></label>
+                            <input asp-for="lastname" class="form-control" />
+                            <span asp-validation-for="lastname" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="phone" class="control-label"></label>
+                            <input asp-for="phone" class="form-control" />
+                            <span asp-validation-for="phone" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="typeDocument" class="control-label">Tipo de Documento:</label>
+                            <select asp-for="typeDocument" class="form-control" required>
+                                <option value="">Seleccione un tipo de documento</option>
+                                <option value="dni">DNI</option>
+                                <option value="carnet">Carnet</option>
+                            </select>
+
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="numDocument" class="control-label"></label>
+                            <input asp-for="numDocument" class="form-control" />
+                            <span asp-validation-for="numDocument" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="mail" class="control-label"></label>
+                            <input asp-for="mail" class="form-control" />
+                            <span asp-validation-for="mail" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="password" class="control-label"></label>
+                            <input asp-for="password" class="form-control" />
+                            <span asp-validation-for="password" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="birthdate" class="form-label"></label>
+                            <input asp-for="birthdate" type="date" class="form-control" />
+                            <span asp-validation-for="birthdate" class="text-danger"></span>
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-success">Registrarse</button>
+                        </div>
+                    </form>
+
+                    <div class="text-center mt-3">
+                        <small>¿Ya tienes cuenta? <a asp-controller="Account" asp-action="Login">Ingresar</a></small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

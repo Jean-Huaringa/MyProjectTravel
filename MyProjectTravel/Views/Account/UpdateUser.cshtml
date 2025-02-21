@@ -1,0 +1,53 @@
+﻿@model MyProjectTravel.Models.DTO.UserDTO
+
+@{
+    ViewData["Title"] = "Actualizar Usuario";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg rounded-4">
+                <div class="card-body p-4">
+                    <h3 class="text-center text-primary">Actualizar Cuenta</h3>
+
+                    @if (ViewBag.Error != null)
+                    {
+                        <div class="alert alert-danger text-center">@ViewBag.Error</div>
+                    }
+
+                    <form method="post" asp-action="UpdateUser">
+                        <div class="mb-3">
+                            <label asp-for="userName" class="control-label"></label>
+                            <input asp-for="userName" class="form-control" />
+                            <span asp-validation-for="userName" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="lastname" class="control-label"></label>
+                            <input asp-for="lastname" class="form-control" />
+                            <span asp-validation-for="lastname" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="phone" class="control-label"></label>
+                            <input asp-for="phone" class="form-control" />
+                            <span asp-validation-for="phone" class="text-danger"></span>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-success">Actualizar</button>
+                        </div>
+                    </form>
+
+                    <div class="text-center mt-3">
+                        <small>¿Ya tienes cuenta? <a asp-controller="Account" asp-action="Login">Ingresar</a></small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Volver a la lista</a>
+</div>

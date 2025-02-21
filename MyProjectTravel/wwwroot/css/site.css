@@ -1,0 +1,121 @@
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+}
+
+/*###############################*/
+
+header {
+    position: sticky;
+    z-index: 1000;
+    top: 0px;
+    border-radius: 16px;
+    padding: 10px;
+    height: 80px;
+    margin-bottom: 20px;
+    background-color: #ffffff;
+    color: black;
+}
+
+
+.navbar-brand {
+    font-weight: 500;
+    color: #949494 !important;
+    font-size: 24px;
+    transition: 0.3s color;
+}
+
+.login-button {
+    background-color: rgb(12, 125, 255);
+    color: rgb(255, 255, 255) !important;
+    font-size: 14px;
+    padding: 8px 20px;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: 0.3s background-color;
+}
+
+.logout-button {
+    background-color: rgb(220, 53, 69);
+    color: rgb(255, 255, 255) !important;
+    font-size: 14px;
+    padding: 8px 20px;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: 0.3s background-color;
+}
+
+.login-button:hover {
+    background-color: rgb(0, 82, 175);
+    color: rgb(255, 255, 255) !important;
+}
+
+.navbar-toggler {
+    border: none;
+    font-size: 1.25rem;
+}
+
+.navbar-toggler:focus,
+btn-close:focus {
+    box-shadow: none;
+    outline: none;
+}
+
+.navbar-nav {
+    gap: 10px;
+}
+
+.nav-link {
+    color: #949494 !important;
+    font-weight: 500;
+    position: relative;
+}
+
+a:hover,
+.nav-link:hover,
+.nav-link.active {
+    color: rgb(12, 125, 255) !important;
+}
+
+@media (min-width: 991px) {
+    .nav-link::before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 2px;
+        background-color: rgb(12, 125, 255);
+        visibility: hidden;
+        transition: 0.3s ease-in-out;
+    }
+
+    .nav-link:hover::before,
+    .nav-link.active::before {
+        width: 100%;
+        visibility: visible;
+    }
+}

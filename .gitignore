@@ -1,0 +1,78 @@
+# Archivos de sistema
+*.DS_Store
+Thumbs.db
+
+# Archivos y carpetas de compilación
+bin/
+obj/
+
+# Archivos de usuario y configuración
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Configuración de IIS
+.vs/
+*.vspx
+.vscode/
+
+# Archivos generados por el paquete NuGet
+*.nupkg
+*.snupkg
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Configuración de dependencias
+packages/
+!packages/build/
+!.nuget/NuGet.exe
+*.nuspec
+
+# Configuración de logs y depuración
+*.log
+*.tlog
+*.out
+*.iobj
+*.gen
+*.idb
+*.pdb
+*.cache
+*.ilk
+*.sbr
+*.swp
+*.tmp
+*.tmp.*
+*.vspscc
+
+# Configuración de publicación y despliegue
+publish/
+app.publish/
+
+# Configuración de Resharper
+_ReSharper*/
+*.DotSettings.user
+
+# Archivos de cobertura de código
+*.coverage
+*.coveragexml
+
+# Configuración local para AWS/Azure
+*.awssqllocaldb
+*.sqllocaldb
+*.vsts
+
+# Configuración de IDEs
+.idea/
+*.Rider
+
+# Archivos específicos de Linux/MacOS
+*.swp
+*~
+
+# Archivos de configuración específicos del sistema operativo
+*.env
+.env.*
+.env.local
+.env.*.local

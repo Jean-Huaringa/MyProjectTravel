@@ -1,0 +1,54 @@
+﻿@model MyProjectTravel.Models.DTO.UserDTO
+
+@{
+    ViewData["Title"] = "SearchUser";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg rounded-4">
+                <div class="card-body p-4">
+                    <h3 class="text-center text-primary">Usuario</h3>
+                    <hr />
+                    <dl class="row">
+                        <dt class="col-sm-4">
+                            @Html.DisplayNameFor(model => model.userName)
+                        </dt>
+                        <dd class="col-sm-8">
+                            @Html.DisplayFor(model => model.userName)
+                        </dd>
+                        <dt class="col-sm-4">
+                            @Html.DisplayNameFor(model => model.lastname)
+                        </dt>
+                        <dd class="col-sm-8">
+                            @Html.DisplayFor(model => model.lastname)
+                        </dd>
+                        <dt class="col-sm-4">
+                            @Html.DisplayNameFor(model => model.phone)
+                        </dt>
+                        <dd class="col-sm-8">
+                            @Html.DisplayFor(model => model.phone)
+                        </dd>
+                        <dt class="col-sm-4">
+                            @Html.DisplayNameFor(model => model.numDocument)
+                        </dt>
+                        <dd class="col-sm-8">
+                            @Html.DisplayFor(model => model.numDocument)
+                        </dd>
+                        <dt class="col-sm-4">
+                            @Html.DisplayNameFor(model => model.mail)
+                        </dt>
+                        <dd class="col-sm-8">
+                            @Html.DisplayFor(model => model.mail)
+                        </dd>
+                    </dl>
+                    <hr />
+                    <a class="dropdown-item text-center" asp-controller="Account" asp-action="UpdateUser">
+                        Editar Cuenta
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

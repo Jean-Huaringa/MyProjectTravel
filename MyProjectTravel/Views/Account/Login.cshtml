@@ -1,0 +1,44 @@
+﻿@model MyProjectTravel.Models.Acount.LoginRequest
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+            <div class="card shadow-lg rounded-4">
+                <div class="card-body p-4">
+                    <h3 class="text-center text-primary">Iniciar Sesión</h3>
+
+                    @if (ViewBag.Error != null)
+                    {
+                        <div class="alert alert-danger text-center">@ViewBag.Error</div>
+                    }
+
+                    <form method="post">
+                        <div class="mb-3">
+                            <label asp-for="Username" class="control-label">Usuario</label>
+                            <input asp-for="Username" class="form-control" placeholder="Ingrese su usuario" />
+                            <span asp-validation-for="Username" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Password" class="control-label">Contraseña</label>
+                            <input asp-for="Password" class="form-control" placeholder="Ingrese su contraseña" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">Ingresar</button>
+                        </div>
+                    </form>
+
+                    <div class="text-center mt-3">
+                        <small>¿No tienes cuenta? <a asp-controller="Account" asp-action="Register">Regístrate</a></small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
